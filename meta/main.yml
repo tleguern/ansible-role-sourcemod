@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: ansible-role-sourcemod
+  author: Tristan Le Guern
+  description: Configure SourceMod
+  company: Gwern
+  license: ISC
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+  galaxy_tags:
+    - source
+    - metamod
+    - sourcemod
+dependencies: []

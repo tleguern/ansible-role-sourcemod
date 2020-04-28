@@ -1,0 +1,41 @@
+---
+- name: Check the latest version of sourcemod
+  uri:
+    url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/sourcemod-latest-linux"
+    return_content: yes
+  register: __sourcemod_filename
+  changed_when: false
+
+- name: Check the currently installed version of sourcemod
+  command:
+    cmd: grep -F {{ __sourcemod_filename.content }} {{ __sourcemod_install_path }}/addons/sourcemod/VERSION
+  register: __sourcemod_current
+  changed_when: false
+  failed_when: false
+
+- name: Upgrade sourcemod
+  block:
+  - name: Download the latest version
+    get_url:
+      url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/{{ __sourcemod_filename.content }}"
+      dest: /tmp
+
+  - name: Extract the downloaded file
+    unarchive:
+      remote_src: yes
+      src: "/tmp/{{ __sourcemod_filename.content }}"
+      dest: "{{ __sourcemod_install_path }}/"
+      owner: "{{ steamcmd_user }}"
+
+  - name: Remove the archive
+    file:
+      path: "/tmp/{{ __sourcemod_filename.content }}"
+      state: absent
+
+  - name: Write the current sourcemode version
+    copy:
+      dest: "{{ __sourcemod_install_path }}/addons/sourcemod/VERSION"
+      content: "{{ __sourcemod_filename.content }}"
+      owner: "{{ steamcmd_user }}"
+    notify: "Restart {{ __sourcemod_game }}"
+  when: __sourcemod_current.rc != 0
