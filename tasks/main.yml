@@ -15,6 +15,11 @@
 
 - name: Upgrade sourcemod
   block:
+  - name: Stop the running source game
+    service:
+      name: "{{ __sourcemod_game }}"
+      state: stopped
+
   - name: Download the latest version
     get_url:
       url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/{{ __sourcemod_filename.content }}"
