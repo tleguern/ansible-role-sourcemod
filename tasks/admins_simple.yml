@@ -1,0 +1,12 @@
+---
+- name: Ensure admins_simple.ini is configured
+  template:
+    src: admins_simple.ini.j2
+    dest: "{{ __sourcemod_install_path }}/addons/sourcemod/configs/admins_simple.ini"
+    owner: "{{ steamcmd_user }}"
+  when: sourcemod_admins_simple is defined
+  register: __sourcemod_admins_config
+
+- debug:
+    msg: "Please type “sm_reloadadmins” in the server console"
+  when: __sourcemod_admins_config.changed

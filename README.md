@@ -18,6 +18,35 @@ An ansible role dedicated to the Installation of Metamod:Source such as [ansible
 | `sourcemod_url` | URL pointing to sourcemod releases | `https://sm.alliedmods.net/smdrop` |
 | `sourcemod_branch` | Release branch (should generally be the same as `{{ metamod_source_branch }}` | `1.10` |
 | `metamod_source_install_path` | Installation directory | mandatory |
+| `sourcemod_admins_simple` | SourceMod admin declaration via the flat file format | See bellow |
+
+### `sourcemod_admins_simple`
+
+A list of hashes containing the identity and flags of any server administrator.
+Optionnaly immunity levels and password can be suplied.
+
+| Key | Description |
+|-----|-------------|
+| `identity` | A SteamID3 formatted SteamID, a bang-prefixed IP address or a simple name |
+| `flags` | Letter encoded permission levels |
+| `immunity` | Immunity level |
+| `password` | Password, only for somple name `identity` |
+
+More information [here](https://wiki.alliedmods.net/Adding_Admins_(SourceMod)).
+
+Example:
+
+```
+sourcemod_admins_simple:
+  - identity: STEAM_0:1:16
+    flags: bce
+  - identity: "!127.0.0.1"
+    immunity: "99"
+    flags: z
+  - identity: BAILOPAN
+    flags: abc
+    password: Gab3n
+```
 
 # Dependencies
 
@@ -27,6 +56,10 @@ None
 
 ```yaml
 - hosts: game
+  vars:
+   sourcemod_admins_simple:
+     - identity: STEAM_0:1:16
+       flags: z
   roles:
     - role: ansible-steamcmd
     - role: ansible-role-cstrike-source

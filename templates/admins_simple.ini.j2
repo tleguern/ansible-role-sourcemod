@@ -1,0 +1,18 @@
+{{ ansible_managed | comment(decoration="//") }}
+
+{% if sourcemod_admins_simple is defined %}
+{% for admin in sourcemod_admins_simple %}
+{#
+"{{ admin.identity }}" "{{ '{}:'.format(admin.immunity) if admin.immunity is defined }}{{ admin.flags }}" {{ '"{}"'.format(admin.password) if admin.password is defined }}
+#}
+{% if admin.password is not defined and admin.immunity is not defined  %}
+"{{ admin.identity }}" "{{ admin.flags }}"
+{% elif admin.immunity is not defined %}
+"{{ admin.identity }}" "{{ admin.flags }}" "{{ admin.password }}"
+{% elif admin.password is not defined %}
+"{{ admin.identity }}" "{{admin.immunity}}:{{ admin.flags }}"
+{% else %}
+"{{ admin.identity }}" "{{admin.immunity}}:{{ admin.flags }}" "{{ admin.password }}"
+{% endif %}
+{% endfor %}
+{% endif %}

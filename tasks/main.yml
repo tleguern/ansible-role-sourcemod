@@ -44,3 +44,7 @@
       owner: "{{ steamcmd_user }}"
     notify: "Restart {{ __sourcemod_game }}"
   when: __sourcemod_current.rc != 0
+
+- name: Ensure SourceMod is configured
+  include_tasks: admins_simple.yml
+  when: sourcemod_admins_simple is defined
