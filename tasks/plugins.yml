@@ -1,0 +1,44 @@
+---
+- name: Disable
+  block:
+  - name: Check if {{ sourcemod_plugin.name }} is enabled
+    stat:
+      path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+    register: __sourcemod_plugin_check
+
+  - name: Copy {{ sourcemod_plugin.name }} to the disabled folder
+    copy:
+      src: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+      dest: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
+      remote_src: true
+      owner: "{{ steamcmd_user }}"
+    when: __sourcemod_plugin_check.stat.exists
+
+  - name: Remove {{ sourcemod_plugin.name }}
+    file:
+      path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+      state: absent
+    when: __sourcemod_plugin_check.stat.exists
+  when: sourcemod_plugin.state == "disabled"
+
+- name: Enable
+  block:
+  - name: Check if {{ sourcemod_plugin.name }} is disabled
+    stat:
+      path: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
+    register: __sourcemod_plugin_check
+
+  - name: Copy {{ sourcemod_plugin.name }} to the active folder
+    copy:
+      src: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
+      dest: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+      remote_src: true
+      owner: "{{ steamcmd_user }}"
+    when: __sourcemod_plugin_check.stat.exists
+
+  - name: Remove {{ sourcemod_plugin.name }}
+    file:
+      path: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
+      state: absent
+    when: __sourcemod_plugin_check.stat.exists
+  when: sourcemod_plugin.state == "enabled"

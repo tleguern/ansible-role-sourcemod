@@ -48,3 +48,10 @@
 - name: Ensure SourceMod is configured
   include_tasks: admins_simple.yml
   when: sourcemod_admins_simple is defined
+
+- name: Configure SourceMod plugins
+  include_tasks: plugins.yml
+  loop: "{{ sourcemod_plugins }}"
+  loop_control:
+    loop_var: sourcemod_plugin
+  when: sourcemod_plugins is defined

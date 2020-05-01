@@ -3,3 +3,4 @@ sourcemod_url: https://sm.alliedmods.net/smdrop
 sourcemod_branch: '1.10'
 # Install in the same folder as metamod:source
 __sourcemod_install_path: "{{ metamod_source_install_path | mandatory }}"
+__sourcemod_plugins_path: "{{ __sourcemod_install_path }}/addons/sourcemod/plugins/"

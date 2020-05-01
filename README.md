@@ -19,6 +19,7 @@ An ansible role dedicated to the Installation of Metamod:Source such as [ansible
 | `sourcemod_branch` | Release branch (should generally be the same as `{{ metamod_source_branch }}` | `1.10` |
 | `metamod_source_install_path` | Installation directory | mandatory |
 | `sourcemod_admins_simple` | SourceMod admin declaration via the flat file format | See bellow |
+| `sourcemod_plugins` | List of plugins to enable or disable | See bellow |
 
 ### `sourcemod_admins_simple`
 
@@ -46,6 +47,27 @@ sourcemod_admins_simple:
   - identity: BAILOPAN
     flags: abc
     password: Gab3n
+```
+
+## `sourcemod_plugins`
+
+Allows to enable or disable any installed plugins.
+
+| Key | Description |
+|-----|-------------|
+| `name` | The plugin's name without file suffix |
+| `state` | Only `disabled` or `enabled` |
+
+Example:
+
+```
+sourcemod_plugins:
+  - name: mapchooser
+    state: enabled
+  - name: disable
+    state: enabled
+  - name: funcommands
+    state: disable
 ```
 
 # Dependencies
