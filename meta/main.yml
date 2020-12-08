@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: ansible-role-sourcemod
+  role_name: sourcemod
   author: Tristan Le Guern
   description: Configure SourceMod
   company: Gwern
