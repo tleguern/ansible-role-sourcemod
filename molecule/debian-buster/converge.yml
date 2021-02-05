@@ -1,0 +1,29 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+    cstrike_source_ip: 127.0.0.1
+    metamod_source_install_path: /home/steam/cstrike-source/cstrike
+    metamod_source_branch: "1.10"
+    sourcemod_branch: '1.10'
+    sourcemod_plugins:
+      - name: mapchooser
+        state: enabled
+      - name: funcommands
+        state: disable
+  tasks:
+    - name: "Include aversiste.steamcmd"
+      include_role:
+        name: "aversiste.steamcmd"
+    - name: "Include aversiste.cstrike-source"
+      include_role:
+        name: "aversiste.cstrike-source"
+    - name: "Include aversiste.metamod-source"
+      include_role:
+        name: "aversiste.metamod-source"
+    - name: "Include ansible-role-sourcemod"
+      include_role:
+        name: "ansible-role-sourcemod"
