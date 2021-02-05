@@ -16,9 +16,11 @@
 - name: Upgrade sourcemod
   block:
   - name: Stop the running source game
-    service:
-      name: "{{ __sourcemod_game }}"
-      state: stopped
+    command: "true"
+    notify: "Stop source games"
+
+  - name: Flush handlers
+    meta: flush_handlers
 
   - name: Download the latest version
     get_url:
@@ -42,7 +44,7 @@
       dest: "{{ __sourcemod_install_path }}/addons/sourcemod/VERSION"
       content: "{{ __sourcemod_filename.content }}"
       owner: "{{ steamcmd_user }}"
-    notify: "Restart {{ __sourcemod_game }}"
+    notify: "Restart source games"
   when: __sourcemod_current.rc != 0
 
 - name: Ensure SourceMod is configured
