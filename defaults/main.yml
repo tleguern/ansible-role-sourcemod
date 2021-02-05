@@ -1,4 +1,5 @@
 ---
+steamcmd_user: steam
 sourcemod_url: https://sm.alliedmods.net/smdrop
 sourcemod_branch: '1.10'
 # Install in the same folder as metamod:source
