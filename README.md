@@ -1,6 +1,10 @@
 # Ansible Role: sourcemod
 
+[![builds.sr.ht status](https://builds.sr.ht/~tleguern/ansible-role-sourcemod.svg)](https://builds.sr.ht/~tleguern/ansible-role-sourcemod?)
+
 An Ansible role that installs and configures [SourceMod](https://www.sourcemod.net/), a [Metamod:Source](http://www.metamodsource.net/) plugin.
+
+Automatic testing is provided using molecule's delegated driver and https://builds.sr.ht.
 
 ## Requirements
 
@@ -91,21 +95,11 @@ None
 
 # License
 
-```
-Copyright (c) 2020 Tristan Le Guern <tleguern@bouledef.eu>
+ISC
 
-Permission to use, copy, modify, and distribute this software for any
-purpose with or without fee is hereby granted, provided that the above
-copyright notice and this permission notice appear in all copies.
+## Contributing
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-```
+Either send [send GitHub pull requests](https://github.com/Aversiste/ansible-role-sourcemod) or [send patches on SourceHut](https://lists.sr.ht/~tleguern/misc).
 
 # Author Information
 
