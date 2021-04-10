@@ -1,0 +1,13 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  become: no
+  tasks:
+  - name: Query metamod version
+    shell: rcon -p 27015 -H 127.0.0.1 -P srht sm version
+    register: rcon
+  - assert:
+      that:
+        - rcon.rc == 0
+        - '"SourceMod Version" in rcon.stdout'
