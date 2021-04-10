@@ -8,11 +8,11 @@ Automatic testing is provided using molecule's delegated driver and https://buil
 
 ## Requirements
 
-An ansible role dedicated to the installation of SteamCMD such as [ansible-steamcmd](https://github.com/Aversiste/ansible-steamcmd) or any role providing the `{{ steamcmd_user }}` variable.
+An ansible role dedicated to the installation of SteamCMD such as [ansible-steamcmd](https://github.com/tleguern/ansible-steamcmd) or any role providing the `{{ steamcmd_user }}` variable.
 
-An ansible role dedicated to the installation of a Source mod such as [ansible-role-cstrike-source](https://github.com/Aversiste/ansible-role-cstrike-source) or any role providing the `Restart {{ metamod_source_game }}` handler.
+An ansible role dedicated to the installation of a Source mod such as [ansible-role-cstrike-source](https://github.com/tleguern/ansible-role-cstrike-source) or any role providing the `Restart {{ metamod_source_game }}` handler.
 
-An ansible role dedicated to the Installation of Metamod:Source such as [ansible-role-metamod-source](https://github.com/Aversiste/ansible-role-metamod-source), or any role providing the `{{ metamod_source_install_path }}`,
+An ansible role dedicated to the Installation of Metamod:Source such as [ansible-role-metamod-source](https://github.com/tleguern/ansible-role-metamod-source), or any role providing the `{{ metamod_source_install_path }}`,
 
 ## Role Variables
 
@@ -99,7 +99,7 @@ ISC
 
 ## Contributing
 
-Either send [send GitHub pull requests](https://github.com/Aversiste/ansible-role-sourcemod) or [send patches on SourceHut](https://lists.sr.ht/~tleguern/misc).
+Either send [send GitHub pull requests](https://github.com/tleguern/ansible-role-sourcemod) or [send patches on SourceHut](https://lists.sr.ht/~tleguern/misc).
 
 # Author Information
 

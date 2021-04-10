@@ -15,15 +15,15 @@
       - name: funcommands
         state: disable
   tasks:
-    - name: "Include aversiste.steamcmd"
+    - name: "Include tleguern.steamcmd"
       include_role:
-        name: "aversiste.steamcmd"
-    - name: "Include aversiste.cstrike-source"
+        name: "tleguern.steamcmd"
+    - name: "Include tleguern.cstrike-source"
       include_role:
-        name: "aversiste.cstrike-source"
-    - name: "Include aversiste.metamod-source"
+        name: "tleguern.cstrike-source"
+    - name: "Include tleguern.metamod-source"
       include_role:
-        name: "aversiste.metamod-source"
+        name: "tleguern.metamod-source"
     - name: "Include ansible-role-sourcemod"
       include_role:
         name: "ansible-role-sourcemod"
