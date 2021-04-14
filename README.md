@@ -4,7 +4,7 @@
 
 An Ansible role that installs and configures [SourceMod](https://www.sourcemod.net/), a [Metamod:Source](http://www.metamodsource.net/) plugin.
 
-Automatic testing is provided using molecule's delegated driver and https://builds.sr.ht.
+Automatic testing is provided using molecule's delegated driver and <https://builds.sr.ht>.
 
 ## Requirements
 
@@ -74,11 +74,11 @@ sourcemod_plugins:
     state: disable
 ```
 
-# Dependencies
+## Dependencies
 
 None
 
-# Example Playbook
+## Example Playbook
 
 ```yaml
 - hosts: game
@@ -93,7 +93,7 @@ None
     - role: ansible-role-sourcemod
 ```
 
-# License
+## License
 
 ISC
 
@@ -101,6 +101,6 @@ ISC
 
 Either send [send GitHub pull requests](https://github.com/tleguern/ansible-role-sourcemod) or [send patches on SourceHut](https://lists.sr.ht/~tleguern/misc).
 
-# Author Information
+## Author Information
 
 Tristan Le Guern <tleguern@bouledef.eu>
