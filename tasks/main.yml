@@ -15,36 +15,36 @@
 
 - name: Upgrade sourcemod
   block:
-  - name: Stop the running source game
-    command: "true"
-    notify: "Stop source games"
+    - name: Stop the running source game
+      command: "true"
+      notify: "Stop source games"
 
-  - name: Flush handlers
-    meta: flush_handlers
+    - name: Flush handlers
+      meta: flush_handlers
 
-  - name: Download the latest version
-    get_url:
-      url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/{{ __sourcemod_filename.content }}"
-      dest: /tmp
+    - name: Download the latest version
+      get_url:
+        url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/{{ __sourcemod_filename.content }}"
+        dest: /tmp
 
-  - name: Extract the downloaded file
-    unarchive:
-      remote_src: yes
-      src: "/tmp/{{ __sourcemod_filename.content }}"
-      dest: "{{ __sourcemod_install_path }}/"
-      owner: "{{ steamcmd_user }}"
+    - name: Extract the downloaded file
+      unarchive:
+        remote_src: yes
+        src: "/tmp/{{ __sourcemod_filename.content }}"
+        dest: "{{ __sourcemod_install_path }}/"
+        owner: "{{ steamcmd_user }}"
 
-  - name: Remove the archive
-    file:
-      path: "/tmp/{{ __sourcemod_filename.content }}"
-      state: absent
+    - name: Remove the archive
+      file:
+        path: "/tmp/{{ __sourcemod_filename.content }}"
+        state: absent
 
-  - name: Write the current sourcemode version
-    copy:
-      dest: "{{ __sourcemod_install_path }}/addons/sourcemod/VERSION"
-      content: "{{ __sourcemod_filename.content }}"
-      owner: "{{ steamcmd_user }}"
-    notify: "Restart source games"
+    - name: Write the current sourcemode version
+      copy:
+        dest: "{{ __sourcemod_install_path }}/addons/sourcemod/VERSION"
+        content: "{{ __sourcemod_filename.content }}"
+        owner: "{{ steamcmd_user }}"
+      notify: "Restart source games"
   when: __sourcemod_current.rc != 0
 
 - name: Ensure SourceMod is configured
