@@ -33,6 +33,7 @@
         src: "/tmp/{{ __sourcemod_filename.content }}"
         dest: "{{ __sourcemod_install_path }}/"
         owner: "{{ steamcmd_user }}"
+        group: "{{ steamcmd_user }}"
 
     - name: Remove the archive
       file:
@@ -44,6 +45,7 @@
         dest: "{{ __sourcemod_install_path }}/addons/sourcemod/VERSION"
         content: "{{ __sourcemod_filename.content }}"
         owner: "{{ steamcmd_user }}"
+        group: "{{ steamcmd_user }}"
       notify: "Restart source games"
   when: __sourcemod_current.rc != 0
 

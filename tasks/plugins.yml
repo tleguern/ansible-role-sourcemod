@@ -12,6 +12,7 @@
         dest: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
         remote_src: true
         owner: "{{ steamcmd_user }}"
+        group: "{{ steamcmd_user }}"
       when: __sourcemod_plugin_check.stat.exists
 
     - name: Remove {{ sourcemod_plugin.name }}
@@ -34,6 +35,7 @@
         dest: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
         remote_src: true
         owner: "{{ steamcmd_user }}"
+        group: "{{ steamcmd_user }}"
       when: __sourcemod_plugin_check.stat.exists
 
     - name: Remove {{ sourcemod_plugin.name }}
