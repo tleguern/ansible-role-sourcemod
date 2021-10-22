@@ -4,14 +4,14 @@
     url: "{{ sourcemod_url }}/{{ sourcemod_branch }}/sourcemod-latest-linux"
     return_content: yes
   register: __sourcemod_filename
-  changed_when: false
+  changed_when: no
 
 - name: Check the currently installed version of sourcemod
   command:
     cmd: grep -F {{ __sourcemod_filename.content }} {{ __sourcemod_install_path }}/addons/sourcemod/VERSION
   register: __sourcemod_current
-  changed_when: false
-  failed_when: false
+  changed_when: no
+  failed_when: no
 
 - name: Upgrade sourcemod
   block:

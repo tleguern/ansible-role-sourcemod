@@ -1,0 +1,13 @@
+---
+- name: Copy {{ sourcemod_plugin.name }} to the disabled folder
+  copy:
+    src: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+    dest: "{{ __sourcemod_plugins_path }}/disabled/"
+    remote_src: yes
+    owner: "{{ steamcmd_user }}"
+    group: "{{ steamcmd_user }}"
+
+- name: Remove {{ sourcemod_plugin.name }}
+  file:
+    path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+    state: absent

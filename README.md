@@ -55,23 +55,25 @@ sourcemod_admins_simple:
 
 ## `sourcemod_plugins`
 
-Allows to enable or disable any installed plugins.
+Allows to install, remove, enable or disable plugins.
 
-| Key | Description |
-|-----|-------------|
-| `name` | The plugin's name without file suffix |
-| `state` | Only `disabled` or `enabled` |
+| Key     | Description                            |
+|---------|----------------------------------------|
+| `name`  | The plugin's name without file suffix  |
+| `state` | Only `absent`, `disabled` or `enabled` |
+
+If the state is either `disabled` or `enabled` and the variable `sourcemod_extra_plugins_directory` is not an empty string the corresponding plugin will be looked for as `{{ sourcemod_extra_plugins_directory }}/{{ plugin.name }}.smx` and uploaded on the remote server.
 
 Example:
 
 ```
 sourcemod_plugins:
-  - name: mapchooser
-    state: enabled
-  - name: disable
-    state: enabled
   - name: funcommands
     state: disable
+  - name: unwanted
+    state: absent
+  - name: swapteam
+    state: enabled
 ```
 
 ## Dependencies

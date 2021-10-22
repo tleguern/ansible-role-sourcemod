@@ -1,46 +1,43 @@
 ---
-- name: Disable
-  block:
-    - name: Check if {{ sourcemod_plugin.name }} is enabled
-      stat:
-        path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
-      register: __sourcemod_plugin_check
+- name: Check if {{ sourcemod_plugin.name }} exists and is enabled
+  stat:
+    path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
+  register: __sourcemod_plugin_check_enabled
 
-    - name: Copy {{ sourcemod_plugin.name }} to the disabled folder
-      copy:
-        src: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
-        dest: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
-        remote_src: true
-        owner: "{{ steamcmd_user }}"
-        group: "{{ steamcmd_user }}"
-      when: __sourcemod_plugin_check.stat.exists
+- name: Check if {{ sourcemod_plugin.name }} exists and is disabled
+  stat:
+    path: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
+  register: __sourcemod_plugin_check_disabled
 
-    - name: Remove {{ sourcemod_plugin.name }}
-      file:
-        path: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
-        state: absent
-      when: __sourcemod_plugin_check.stat.exists
-  when: sourcemod_plugin.state == "disabled"
+- name: Check if {{ sourcemod_plugin.name }} exists locally
+  become: no
+  local_action:
+    module: stat
+    path: "{{ sourcemod_extra_plugins_directory }}/{{ sourcemod_plugin.name }}.smx"
+  register: __sourcemod_plugin_check_local
 
-- name: Enable
-  block:
-    - name: Check if {{ sourcemod_plugin.name }} is disabled
-      stat:
-        path: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
-      register: __sourcemod_plugin_check
+- name: Remove {{ sourcemod_plugin.name }}
+  include_tasks: plugin-uninstall.yml
+  when:
+    - sourcemod_plugin.state is defined
+    - sourcemod_plugin.state == "absent"
 
-    - name: Copy {{ sourcemod_plugin.name }} to the active folder
-      copy:
-        src: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
-        dest: "{{ __sourcemod_plugins_path }}/{{ sourcemod_plugin.name }}.smx"
-        remote_src: true
-        owner: "{{ steamcmd_user }}"
-        group: "{{ steamcmd_user }}"
-      when: __sourcemod_plugin_check.stat.exists
+- name: Disable {{ sourcemod_plugin.name }}
+  include_tasks: plugin-disable.yml
+  when:
+    - sourcemod_plugin.state is defined
+    - sourcemod_plugin.state == "disabled"
+    - __sourcemod_plugin_check_enabled.stat.exists
 
-    - name: Remove {{ sourcemod_plugin.name }}
-      file:
-        path: "{{ __sourcemod_plugins_path }}/disabled/{{ sourcemod_plugin.name }}.smx"
-        state: absent
-      when: __sourcemod_plugin_check.stat.exists
-  when: sourcemod_plugin.state == "enabled"
+- name: Enable {{ sourcemod_plugin.name }}
+  include_tasks: plugin-enable.yml
+  when:
+    - sourcemod_plugin.state is not defined
+      or sourcemod_plugin.state == "enabled"
+    - __sourcemod_plugin_check_disabled.stat.exists
+
+- name: Install/Update {{ sourcemod_plugin.name }}
+  include_tasks: plugin-install.yml
+  when:
+    - __sourcemod_plugin_check_local.stat.exists
+    - sourcemod_extra_plugins_directory
