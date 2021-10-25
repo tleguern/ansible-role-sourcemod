@@ -20,7 +20,7 @@ An ansible role dedicated to the Installation of Metamod:Source such as [ansible
 |----------|-------------|---------|
 | `steamcmd_user` | User name for steamcmd | `steam` |
 | `sourcemod_url` | URL pointing to sourcemod releases | `https://sm.alliedmods.net/smdrop` |
-| `sourcemod_branch` | Release branch (should generally be the same as `{{ metamod_source_branch }}` | `1.10` |
+| `sourcemod_branch` | Release branch (should generally be the same as `{{ metamod_source_branch }}` | `1.11` |
 | `metamod_source_install_path` | Installation directory | mandatory |
 | `sourcemod_admins_simple` | SourceMod admin declaration via the flat file format | See bellow |
 | `sourcemod_plugins` | List of plugins to enable or disable | See bellow |
